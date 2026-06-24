@@ -1,6 +1,6 @@
 # CloudPress Native Architecture
 
-CloudPress는 외부 오브젝트 스토리지 의존 없이 자체 제어면, 자체 NoSQL 엔진 인터페이스, CP3 스토리지 설계, PHP-WASM 런타임을 운영 가능한 구성으로 분리합니다.
+CloudPress는 Durable Objects, R2, S3를 제품 핵심 구조로 사용하지 않는 자체 아키텍처를 목표로 설계되었습니다. 현재 저장소는 배포 가능한 Worker 프로토타입 안에 자체 제어면, 자체 NoSQL 엔진 인터페이스, CP3 스토리지 설계, PHP-WASM 런타임 설계를 코드와 문서로 분리합니다.
 
 ## 계층
 

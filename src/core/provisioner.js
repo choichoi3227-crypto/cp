@@ -1,7 +1,7 @@
 import { productByType } from './catalog.js';
 import { estimateMonthlyCost } from './billing.js';
 
-export function createProvisioningPlan({ owner, name, type, config = {}, env = {} }) {
+export function createProvisioningPlan({ owner, name, type, config = {} }) {
   const product = productByType(type);
   if (!product) throw new Error('지원하지 않는 상품 유형입니다.');
   const base = {
@@ -17,7 +17,7 @@ export function createProvisioningPlan({ owner, name, type, config = {}, env = {
     config: { ...product.defaults, ...config },
   };
   const topology = topologyFor(type, base.id);
-  return { ...base, topology, billing: estimateMonthlyCost({ ...base, config: { ...product.defaults, ...config } }, env) };
+  return { ...base, topology, billing: estimateMonthlyCost({ ...base, config: { ...product.defaults, ...config } }) };
 }
 
 function topologyFor(type, id) {
