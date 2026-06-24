@@ -6,13 +6,12 @@ assets = { directory = "./public", binding = "ASSETS", not_found_handling = "sin
 [vars]
 APP_NAME = "클라우드프레스"
 JWT_ISSUER = "cloudpress"
-CP_ARCHITECTURE = "native-control-plane"
 # Set ADMIN_EMAIL and JWT_SECRET in Cloudflare dashboard or with `wrangler secret put`.
 
-# Optional DNS pricing overrides
-# CP_DNS_INCLUDED_ZONES = "1"
-# CP_DNS_ZONE_MONTHLY_KRW = "2900"
-# CP_DNS_INCLUDED_QUERIES = "1000000"
-# CP_DNS_QUERY_BLOCK_SIZE = "1000000"
-# CP_DNS_QUERY_BLOCK_KRW = "900"
-# CLOUDFLARE_DRY_RUN = "true"
+[[durable_objects.bindings]]
+name = "CLOUDPRESS_DB"
+class_name = "CloudPressDB"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["CloudPressDB"]

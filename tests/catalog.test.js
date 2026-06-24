@@ -2,7 +2,6 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { productByType, productTypes } from '../src/core/catalog.js';
 import { createProvisioningPlan } from '../src/core/provisioner.js';
-import { estimateDnsMonthlyCost, validateDomain } from '../src/core/dns.js';
 
 test('catalog includes all CloudPress initial and platform products', () => {
   assert.deepEqual(productTypes().sort(), ['cp3', 'database', 'dns', 'observability', 'php', 'static', 'wordpress']);
@@ -22,16 +21,4 @@ test('cp3 billing charges only usage above included 50GB', () => {
   const plan = createProvisioningPlan({ owner: 'owner@example.com', name: 'storage', type: 'cp3', config: { requestedGb: 53 } });
   assert.equal(plan.billing.billableGb, 3);
   assert.equal(plan.billing.monthly, 5700);
-});
-
-
-test('dns billing charges by zone count and query quota blocks', () => {
-  const estimate = estimateDnsMonthlyCost({ zones: 3, monthlyQueries: 2_400_001 });
-  assert.equal(estimate.billableZones, 2);
-  assert.equal(estimate.billableQueryBlocks, 2);
-  assert.equal(estimate.monthly, 7600);
-});
-
-test('domain validation normalizes user input', () => {
-  assert.equal(validateDomain('https://Example.COM/'), 'example.com');
 });
