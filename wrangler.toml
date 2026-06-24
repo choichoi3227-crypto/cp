@@ -1,0 +1,17 @@
+name = "cloudpress"
+main = "src/worker.js"
+compatibility_date = "2026-06-24"
+assets = { directory = "./public", binding = "ASSETS", not_found_handling = "single-page-application" }
+
+[vars]
+APP_NAME = "클라우드프레스"
+JWT_ISSUER = "cloudpress"
+CP_ARCHITECTURE = "native-control-plane"
+# Set ADMIN_EMAIL, JWT_SECRET, CPDB_API_KEY, Cloudflare, and PayPal secrets with `wrangler secret put`.
+
+# Optional DNS pricing overrides
+# CP_DNS_INCLUDED_ZONES = "1"
+# CP_DNS_ZONE_MONTHLY_KRW = "2900"
+# CP_DNS_INCLUDED_QUERIES = "1000000"
+# CP_DNS_QUERY_BLOCK_SIZE = "1000000"
+# CP_DNS_QUERY_BLOCK_KRW = "900"
