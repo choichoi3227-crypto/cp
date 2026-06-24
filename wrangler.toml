@@ -6,7 +6,7 @@ assets = { directory = "./public", binding = "ASSETS", not_found_handling = "sin
 
 [[kv_namespaces]]
 binding = "CP_KV"
-id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
+id = "5a2435a6763d41898a9951e03b473831"
 
 [vars]
 APP_NAME = "클라우드프레스"
