@@ -9,6 +9,8 @@
 - `public/app.js`: 로그인/가입, 프로젝트 생성, 관리자 패널 클라이언트 로직
 - `src/worker.js`: Cloudflare Workers 백엔드 API, 인증, 관리자 RBAC, CloudPress 자체 상태 엔진 기반 CloudPressDB 프로토타입
 - `wrangler.toml`: Cloudflare 배포 설정
+- `src/worker.js`: Cloudflare Workers 백엔드 API, 인증, 관리자 RBAC, Durable Object 기반 CloudPressDB 프로토타입
+- `wrangler.toml`: Cloudflare 배포 설정과 Durable Object 바인딩
 
 ## 실행
 
@@ -39,3 +41,5 @@ wrangler secret put ADMIN_EMAIL
 - `docs/architecture.md`: Durable Objects 없는 자체 아키텍처 설계
 - `docs/security.md`: 인증, 세션, 보안 헤더, 운영 secret 정책
 - `docs/api.md`: API와 상품 타입
+- 감사 로그와 `/api/health` 상태 엔드포인트
+- 상태 비저장 Worker + 격리형 데이터 오브젝트 구조
