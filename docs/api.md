@@ -9,8 +9,6 @@
 | POST | `/api/auth/login` | No | Login and return JWT |
 | GET | `/api/me` | Yes | User dashboard, projects, SLO |
 | POST | `/api/projects` | Yes | Provision product project |
-| POST | `/api/domains` | Yes | Add a user domain to the configured admin Cloudflare account as a zone |
-| POST | `/api/billing/checkout` | Yes | Create a PayPal checkout order for base fee + additional usage invoice |
 | GET | `/api/admin/stats` | Admin | Admin status and counts |
 
 ## Product types

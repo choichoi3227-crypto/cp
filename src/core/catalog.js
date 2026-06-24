@@ -32,8 +32,8 @@ export const PRODUCTS = {
   dns: {
     type: 'dns',
     name: 'CloudPress DNS',
-    summary: '관리자 Cloudflare 계정에 zone을 추가하고 zone 개수/쿼리 단위로 합리적으로 과금하는 DNS',
-    defaults: { dnssec: true, tls: 'auto', healthSteering: true, includedZones: 1, zoneMonthlyKrw: 2900, includedQueries: 1000000, queryBlockKrw: 900 },
+    summary: 'Anycast DNS, DNSSEC, 자동 TLS를 제공하는 자체 제어면',
+    defaults: { dnssec: true, tls: 'auto', healthSteering: true },
   },
   observability: {
     type: 'observability',

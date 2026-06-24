@@ -6,12 +6,8 @@ const authMessage = $('#authMessage');
 const sessionPanel = $('#sessionPanel');
 const projectForm = $('#projectForm');
 const projectsEl = $('#projects');
-const domainsEl = $('#domains');
-const domainForm = $('#domainForm');
 const adminPanel = $('#adminPanel');
 const logoutBtn = $('#logoutBtn');
-const checkoutBtn = $('#checkoutBtn');
-const billingPanel = $('#billingPanel');
 let mode = 'login';
 let token = localStorage.getItem('cloudpress_token') || '';
 
@@ -39,32 +35,21 @@ function renderProjects(projects = []) {
   projectsEl.innerHTML = projects.map((project) => `<article class="project"><div class="flex items-center justify-between gap-3"><h3 class="font-black">${project.name}</h3><span class="badge">${project.type}</span></div><p class="mt-3 text-sm text-slate-300">상태: ${project.status} · 지역: ${project.region}</p><p class="mt-2 text-xs text-slate-500">${new Date(project.createdAt).toLocaleString('ko-KR')}</p></article>`).join('') || '<p class="text-slate-400">아직 생성된 프로젝트가 없습니다.</p>';
 }
 
-function renderDomains(domains = [], policy = {}) {
-  domainsEl.innerHTML = domains.map((item) => `<article class="project"><div class="flex items-center justify-between gap-3"><h3 class="font-black">${item.domain}</h3><span class="badge">${item.mode}</span></div><p class="mt-3 text-sm text-slate-300">상태: ${item.status} · Zone: ${item.cloudflareZoneId}</p><p class="mt-2 text-xs text-slate-400">기본 ${policy.includedZones ?? 1} zone / ${Number(policy.includedQueries ?? 1000000).toLocaleString('ko-KR')} queries 포함 · 초과 zone당 ₩${Number(policy.zoneMonthlyKrw ?? 2900).toLocaleString('ko-KR')} · 쿼리 블록당 ₩${Number(policy.queryBlockKrw ?? 900).toLocaleString('ko-KR')}</p></article>`).join('') || '<p class="text-slate-400">아직 등록된 DNS zone이 없습니다.</p>';
-}
-
 async function refresh() {
   if (!token) {
     sessionPanel.textContent = '로그인하면 프로젝트 생성과 관리자 기능을 사용할 수 있습니다.';
     projectForm.classList.add('hidden');
-    domainForm.classList.add('hidden');
     logoutBtn.classList.add('hidden');
-    checkoutBtn.classList.add('hidden');
     adminPanel.classList.add('hidden');
     projectsEl.innerHTML = '';
-    domainsEl.innerHTML = '';
-    billingPanel.innerHTML = '';
     return;
   }
   try {
     const me = await api('/me');
     sessionPanel.innerHTML = `<b>${me.user.email}</b>님 환영합니다. 역할: <span class="badge">${me.user.role}</span>`;
     projectForm.classList.remove('hidden');
-    domainForm.classList.remove('hidden');
     logoutBtn.classList.remove('hidden');
-    checkoutBtn.classList.remove('hidden');
     renderProjects(me.projects);
-    renderDomains(me.domains, me.dnsBillingPolicy);
     if (me.user.role === 'admin') {
       const stats = await api('/admin/stats');
       adminPanel.classList.remove('hidden');
@@ -88,16 +73,6 @@ authForm.addEventListener('submit', async (event) => {
   } catch (error) { authMessage.textContent = error.message; }
 });
 
-domainForm.addEventListener('submit', async (event) => {
-  event.preventDefault();
-  const body = Object.fromEntries(new FormData(domainForm));
-  try {
-    const data = await api('/domains', { method: 'POST', body: JSON.stringify(body) });
-    renderDomains(data.domains, data.billingPolicy);
-    domainForm.reset();
-  } catch (error) { sessionPanel.textContent = error.message; }
-});
-
 projectForm.addEventListener('submit', async (event) => {
   event.preventDefault();
   const body = Object.fromEntries(new FormData(projectForm));
@@ -106,13 +81,6 @@ projectForm.addEventListener('submit', async (event) => {
     renderProjects(data.projects);
     projectForm.reset();
   } catch (error) { sessionPanel.textContent = error.message; }
-});
-
-checkoutBtn.addEventListener('click', async () => {
-  try {
-    const data = await api('/billing/checkout', { method: 'POST', body: JSON.stringify({}) });
-    billingPanel.innerHTML = `청구서 ${data.invoice.id}: $${data.invoice.amount.toFixed(2)} · <a class="text-cyan-200 underline" href="${data.paypal.approveUrl}" target="_blank" rel="noreferrer">PayPal 승인</a>`;
-  } catch (error) { billingPanel.textContent = error.message; }
 });
 
 logoutBtn.addEventListener('click', async () => { token = ''; localStorage.removeItem('cloudpress_token'); await refresh(); });
