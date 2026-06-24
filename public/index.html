@@ -34,7 +34,7 @@
       <div class="mx-auto grid max-w-7xl gap-12 px-5 pb-24 lg:grid-cols-[1.05fr_.95fr] lg:items-center">
         <div class="relative">
           <span class="inline-flex rounded-full border border-cyan-300/30 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100">자체 NoSQL · 자체 스토리지 · PHP-WASM 호스팅</span>
-          <h1 class="mt-8 text-5xl font-black leading-tight tracking-tight md:text-7xl">트래픽 무제한 워드프레스와 무한 확장형 클라우드.</h1>
+          <h1 class="mt-8 text-5xl font-black leading-tight tracking-tight md:text-7xl">느리지 않은 워드프레스와 무한 확장형 클라우드.</h1>
           <p class="mt-6 max-w-2xl text-lg leading-8 text-slate-300">클라우드프레스는 CloudPressDB, CP3 스토리지, 워드프레스/PHP-WASM, 정적 사이트 배포를 하나의 경험 중심 콘솔로 제공합니다. DB와 스토리지는 호스팅과 완전히 분리되어 독립 확장됩니다.</p>
           <div class="mt-8 flex flex-col gap-3 sm:flex-row"><a href="#console" class="rounded-full bg-gradient-to-r from-brand to-neon px-6 py-3 text-center font-black text-white shadow-glow">무료로 프로젝트 만들기</a><a href="#architecture" class="rounded-full border border-white/15 px-6 py-3 text-center font-bold text-slate-100 hover:bg-white/10">인프라 보기</a></div>
           <dl class="mt-10 grid grid-cols-3 gap-3 text-center"><div class="glass rounded-3xl p-4"><dt class="text-2xl font-black">99.99%+</dt><dd class="text-xs text-slate-400">목표 가용성</dd></div><div class="glass rounded-3xl p-4"><dt class="text-2xl font-black">50GB</dt><dd class="text-xs text-slate-400">CP3 기본 용량</dd></div><div class="glass rounded-3xl p-4"><dt class="text-2xl font-black">₩1,900</dt><dd class="text-xs text-slate-400">GB 초과당</dd></div></dl>
@@ -60,20 +60,18 @@ status: provisioned</code></pre>
       <div class="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
         <article class="card"><h3>CloudPressDB</h3><p>자체 NoSQL Database. 샤딩, 복제, 로그 기반 복구, 무한 확장성과 용량을 지향하는 문서 저장소입니다.</p></article>
         <article class="card"><h3>CP3 Storage</h3><p>R2/S3 미사용 자체 스토리지 상품. 기본 50GB, 초과 1GB당 1,900원 정책을 콘솔에 내장했습니다.</p></article>
-        <article class="card"><h3>WordPress Hosting</h3><p>PHP-WASM 런타임과 분리형 DB/스토리지, 트래픽 무제한 정책으로 고성능 워드프레스를 제공합니다.</p></article>
+        <article class="card"><h3>WordPress Hosting</h3><p>PHP-WASM 런타임과 분리형 DB/스토리지로 고성능, 고효율, 고가용성, 저지연 워드프레스를 목표로 합니다.</p></article>
         <article class="card"><h3>Static & PHP Sites</h3><p>직접 파일 작성, 정적 배포, PHP 사이트 런타임을 프로젝트 단위로 관리합니다.</p></article>
-      <article class="card"><h3>CloudPress DNS</h3><p>관리자가 설정한 Cloudflare 글로벌 API/이메일 계정에 사용자 도메인을 zone으로 추가하고, zone 개수와 쿼리 단위로 합리 과금합니다.</p></article>
-        <article class="card"><h3>CP Observe</h3><p>로그, 메트릭, 트레이스, SLO 알림으로 운영 상태를 즉시 확인하는 관측성 상품입니다.</p></article>
       </div>
     </section>
 
     <section id="architecture" class="border-y border-white/10 bg-white/[.03] py-20">
       <div class="mx-auto grid max-w-7xl gap-8 px-5 lg:grid-cols-2">
-        <div><p class="text-sm font-black uppercase tracking-[.3em] text-cyan-200">Architecture</p><h2 class="mt-3 text-4xl font-black">완전한 백엔드 구조</h2><p class="mt-5 text-slate-300">Worker API와 CloudPress 자체 상태 엔진 기반 CloudPressDB, 인증/관리자 권한, 프로젝트 프로비저닝, 결제, 감사 로그, 보안 헤더를 포함합니다.</p></div>
+        <div><p class="text-sm font-black uppercase tracking-[.3em] text-cyan-200">Architecture</p><h2 class="mt-3 text-4xl font-black">완전한 백엔드 구조</h2><p class="mt-5 text-slate-300">Worker API, Durable Object 기반 CloudPressDB 프로토타입, 인증/관리자 권한, 프로젝트 프로비저닝, 감사 로그, 보안 헤더와 속도 제한을 포함합니다.</p></div>
         <ol class="space-y-4 text-slate-200">
           <li class="step">Edge API Gateway: TLS, CSP, HSTS, 요청 ID, rate-limit</li>
           <li class="step">Auth Service: PBKDF2 비밀번호 해시, JWT 세션, 관리자 RBAC</li>
-          <li class="step">CloudPressDB Native Engine: 자체 NoSQL API, 사용자/프로젝트/감사 컬렉션</li>
+          <li class="step">CloudPressDB: 자체 NoSQL API, 사용자/프로젝트/감사 컬렉션</li>
           <li class="step">Provisioner: WordPress, CP3, DB, Static, PHP 사이트 분리 생성</li>
           <li class="step">Observability: 감사 로그와 상태 엔드포인트</li>
         </ol>
@@ -94,16 +92,10 @@ status: provisioned</code></pre>
         <div id="sessionPanel" class="mt-6 rounded-3xl bg-white/5 p-5 text-slate-300">로그인하면 프로젝트 생성과 관리자 기능을 사용할 수 있습니다.</div>
         <form id="projectForm" class="mt-6 hidden grid gap-4 md:grid-cols-[1fr_1fr_auto]">
           <input name="name" required minlength="2" class="input" placeholder="프로젝트 이름" />
-          <select name="type" class="input"><option value="wordpress">워드프레스 호스팅</option><option value="cp3">CP3 스토리지</option><option value="database">CloudPressDB</option><option value="static">정적 사이트</option><option value="php">PHP 사이트</option><option value="dns">CloudPress DNS</option><option value="observability">CP Observe</option></select>
+          <select name="type" class="input"><option value="wordpress">워드프레스 호스팅</option><option value="cp3">CP3 스토리지</option><option value="database">CloudPressDB</option><option value="static">정적 사이트</option><option value="php">PHP 사이트</option></select>
           <button class="rounded-2xl bg-gradient-to-r from-brand to-neon px-5 py-3 font-black">생성</button>
         </form>
-        <form id="domainForm" class="mt-6 hidden grid gap-4 md:grid-cols-[1fr_auto]"><input name="domain" required class="input" placeholder="example.com 도메인 추가(관리자 Cloudflare 계정 zone 생성)" /><button class="rounded-2xl border border-cyan-300/40 px-5 py-3 font-black text-cyan-100">DNS 추가</button></form>
         <div id="projects" class="mt-6 grid gap-4 md:grid-cols-2"></div>
-        <div id="domains" class="mt-6 grid gap-4 md:grid-cols-2"></div>
-        <div class="mt-6 grid gap-4 lg:grid-cols-3"><div><h3 class="mb-3 font-black">사용량</h3><div id="usagePanel" class="space-y-2 text-sm text-slate-300"></div></div><div><h3 class="mb-3 font-black">청구서</h3><div id="invoicePanel" class="space-y-2 text-sm text-slate-300"></div></div><div><h3 class="mb-3 font-black">지원 티켓</h3><div id="ticketPanel" class="space-y-2 text-sm text-slate-300"></div></div></div>
-        <form id="ticketForm" class="mt-6 hidden grid gap-4 md:grid-cols-[1fr_1fr_auto]"><input name="subject" required class="input" placeholder="지원 제목" /><input name="message" required class="input" placeholder="지원 내용(10자 이상)" /><button class="rounded-2xl border border-white/20 px-5 py-3 font-black">티켓 생성</button></form>
-        <button id="checkoutBtn" class="mt-6 hidden rounded-2xl bg-white px-5 py-3 font-black text-ink">PayPal로 결제하기</button>
-        <div id="billingPanel" class="mt-4 text-sm text-slate-300"></div>
         <div id="adminPanel" class="mt-6 hidden rounded-3xl border border-amber-300/20 bg-amber-300/10 p-5"></div>
       </div>
     </section>
@@ -113,7 +105,7 @@ status: provisioned</code></pre>
     <form id="authForm" class="p-6"><div class="flex items-center justify-between"><h2 id="authTitle" class="text-2xl font-black">로그인</h2><button type="button" id="closeAuth" class="rounded-full px-3 py-1 text-slate-300 hover:bg-white/10">닫기</button></div><div class="mt-5 grid gap-3"><input class="input" name="email" type="email" placeholder="email@cloudpress.kr" required /><input class="input" name="password" type="password" placeholder="비밀번호(8자 이상)" minlength="8" required /><button class="rounded-2xl bg-white px-5 py-3 font-black text-ink">계속</button></div><p id="authMessage" class="mt-4 text-sm text-slate-300"></p></form>
   </dialog>
 
-  <footer class="border-t border-white/10 px-5 py-8 text-center text-sm text-slate-400">© 2026 클라우드프레스. 자체 기술 기반 클라우드 서비스.</footer>
+  <footer class="border-t border-white/10 px-5 py-8 text-center text-sm text-slate-400">© 2026 클라우드프레스. 자체 기술 기반 클라우드 프로토타입.</footer>
   <script src="/app.js" type="module"></script>
 </body>
 </html>

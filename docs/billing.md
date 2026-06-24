@@ -32,7 +32,3 @@ PAYPAL_API_BASE=https://api-m.paypal.com
 - Static: no base fee, additional build/usage units when applicable.
 - CloudPress DNS: zone count plus DNS query quota blocks.
 - CP Observe: base monthly fee plus extra log volume.
-
-## Traffic policy
-
-All CloudPress hosting products use **unlimited traffic**, not unmetered traffic. Traffic is not a metered billing dimension, and invoices only include base fees plus explicit additional resource usage. Admin users are marked payment-exempt and receive waived invoices without PayPal payment.

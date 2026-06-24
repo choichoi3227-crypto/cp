@@ -4,6 +4,7 @@ export class CloudflareZoneClient {
     this.globalApiKey = env.CLOUDFLARE_GLOBAL_API_KEY || '';
     this.accountId = env.CLOUDFLARE_ACCOUNT_ID || '';
     this.baseUrl = env.CLOUDFLARE_API_BASE || 'https://api.cloudflare.com/client/v4';
+    this.dryRun = env.CLOUDFLARE_DRY_RUN !== 'false';
   }
 
   configured() {
@@ -11,7 +12,17 @@ export class CloudflareZoneClient {
   }
 
   async createZone(domain) {
-    if (!this.configured()) throw new Error('CLOUDFLARE_ADMIN_EMAIL, CLOUDFLARE_GLOBAL_API_KEY, and CLOUDFLARE_ACCOUNT_ID are required.');
+    if (!this.configured() || this.dryRun) {
+      return {
+        id: `dryrun-${domain}`,
+        name: domain,
+        status: 'pending_nameserver_update',
+        nameServers: [`ns1.cloudpress.example`, `ns2.cloudpress.example`],
+        mode: 'dry-run',
+        accountId: this.accountId || 'not-configured',
+      };
+    }
+
     const response = await fetch(`${this.baseUrl}/zones`, {
       method: 'POST',
       headers: {

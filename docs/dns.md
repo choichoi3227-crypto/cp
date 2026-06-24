@@ -10,7 +10,7 @@ wrangler secret put CLOUDFLARE_ADMIN_EMAIL
 wrangler secret put CLOUDFLARE_ACCOUNT_ID
 ```
 
-Cloudflare zone 생성은 운영 설정이 필수입니다. `CLOUDFLARE_GLOBAL_API_KEY`, `CLOUDFLARE_ADMIN_EMAIL`, `CLOUDFLARE_ACCOUNT_ID`가 없으면 요청은 실패합니다.
+기본값은 안전한 dry-run입니다. 실제 Cloudflare zone 생성을 수행하려면 `CLOUDFLARE_DRY_RUN=false`를 설정해야 합니다.
 
 ## Pricing
 
