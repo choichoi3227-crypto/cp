@@ -1,9 +1,22 @@
 name = "cloudpress"
 main = "src/worker.js"
 compatibility_date = "2026-06-24"
+
 assets = { directory = "./public", binding = "ASSETS", not_found_handling = "single-page-application" }
+
+[[kv_namespaces]]
+binding = "CP_KV"
+id = "REPLACE_WITH_YOUR_KV_NAMESPACE_ID"
 
 [vars]
 APP_NAME = "클라우드프레스"
 JWT_ISSUER = "cloudpress"
-# Set ADMIN_EMAIL and JWT_SECRET in Cloudflare dashboard or with `wrangler secret put`.
+CLOUDFLARE_DRY_RUN = "true"
+# 아래 값들은 `wrangler secret put` 으로 설정하세요:
+# ADMIN_EMAIL        - 관리자 이메일
+# JWT_SECRET         - JWT 서명 비밀키 (랜덤 64자 이상)
+# CLOUDFLARE_ADMIN_EMAIL
+# CLOUDFLARE_GLOBAL_API_KEY
+# CLOUDFLARE_ACCOUNT_ID
+# PAYPAL_CLIENT_ID
+# PAYPAL_CLIENT_SECRET
