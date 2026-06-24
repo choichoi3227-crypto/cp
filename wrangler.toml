@@ -7,11 +7,3 @@ assets = { directory = "./public", binding = "ASSETS", not_found_handling = "sin
 APP_NAME = "클라우드프레스"
 JWT_ISSUER = "cloudpress"
 # Set ADMIN_EMAIL and JWT_SECRET in Cloudflare dashboard or with `wrangler secret put`.
-
-[[durable_objects.bindings]]
-name = "CLOUDPRESS_DB"
-class_name = "CloudPressDB"
-
-[[migrations]]
-tag = "v1"
-new_sqlite_classes = ["CloudPressDB"]
