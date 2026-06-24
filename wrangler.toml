@@ -1,0 +1,10 @@
+name = "cloudpress"
+main = "src/worker.js"
+compatibility_date = "2026-06-24"
+assets = { directory = "./public", binding = "ASSETS", not_found_handling = "single-page-application" }
+
+[vars]
+APP_NAME = "클라우드프레스"
+JWT_ISSUER = "cloudpress"
+CP_ARCHITECTURE = "native-control-plane"
+# Set ADMIN_EMAIL and JWT_SECRET in Cloudflare dashboard or with `wrangler secret put`.
